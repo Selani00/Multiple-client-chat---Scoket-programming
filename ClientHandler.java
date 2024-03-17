@@ -64,15 +64,11 @@ public class ClientHandler implements Runnable {
 
 
 
-    private void closeEverything(Socket socket2, BufferedReader bufferedReader2, BufferedWriter bufferedWriter2) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'closeEverything'");
-    }
 
 
 
 
-    private void broadcastMessage(String messageTosend) {
+    public void broadcastMessage(String messageTosend) {
         // TODO Auto-generated method stub
         for(ClientHandler clientHandler : clientHandler){
             try{
@@ -82,9 +78,33 @@ public class ClientHandler implements Runnable {
                     clientHandler.bufferedWriter.flush();
                 }
             }catch(IOException e){
-                closeEverything(clientHandler.socket, clientHandler.bufferedReader, clientHandler.bufferedWriter);
+                closeEverything(socket, bufferedReader, bufferedWriter);
             }
         }
     }
     
+
+    public void removeClinetHandler(){
+        clientHandler.remove(this);
+        broadcastMessage("Server : "+ clientUserName+" has left the chat");
+    }
+    
+    public void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter) {
+        
+        removeClinetHandler();
+        try{
+            if(bufferedReader!=null){
+                bufferedReader.close();
+            }
+            if(bufferedWriter!=null){
+                bufferedWriter.close();
+            }
+            if(socket!=null){
+                socket.close();
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+    }
 }
