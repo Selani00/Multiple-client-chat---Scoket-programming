@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
-import java.nio.Buffer;
 import java.util.ArrayList;
 
 public class ClientHandler implements Runnable {
@@ -40,9 +39,6 @@ public class ClientHandler implements Runnable {
         
     }
 
-    
-
-
     public void run(){
         String messageFromClient;
 
@@ -60,13 +56,6 @@ public class ClientHandler implements Runnable {
 
 
     }
-
-
-
-
-
-
-
 
     public void broadcastMessage(String messageTosend) {
         // TODO Auto-generated method stub
